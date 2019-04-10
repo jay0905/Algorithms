@@ -60,3 +60,27 @@ int convert_num(int num) {
 	return new_num;
 }
 
+// 수정 후
+#include <stdio.h>
+
+int main() {
+	int N, temp, tempT, tempU, answer;
+	int count = 0;
+
+	scanf("%d", &N);
+	answer = N;
+
+	do {
+		tempT = answer / 10;
+		tempU = answer % 10;
+
+		temp = (tempT + tempU) % 10;
+
+		count++;
+
+		answer = 10 * tempU + temp;
+	} while (N != answer);
+	printf("%d", count);
+
+	return 0;
+}
