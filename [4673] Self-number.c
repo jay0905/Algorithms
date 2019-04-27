@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+// 출력이 잘못됨. 수정 필요
 int main(void) {
 	int saved[10000];
 	int num;
@@ -42,3 +43,28 @@ int main(void) {
 	}
 
 }
+
+// 다른 풀이 참고 후 새로 작성
+
+#include <stdio.h>
+
+int main(void) {
+	int arr[10010] = {0,};
+	int n, dn;
+
+	for (int i = 1; i < 10000; i++) {
+		n = i; // n은 d(n)을 계산하기 위해 사용
+		dn = n; 
+		while (n != 0) {
+			dn += n % 10; // n에서 끝자리 수만 dn에 더함
+			n /= 10; // n의 끝자리 수를 지움
+		}
+		if(dn <= 10000) arr[dn]++; // 배열에서 생성자가 아닌 수를 0에서 1로 만듦 
+	}
+
+	for (int i = 1; i < 10000; i++) {
+		if (arr[i] == 0) printf("%d\n", i); // 배열에서 셀프넘버인 수만 출력
+	}
+
+}
+
