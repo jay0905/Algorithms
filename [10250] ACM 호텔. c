@@ -1,0 +1,15 @@
+#include <stdio.h>
+
+int main(void) {
+	int T, H, W, N;
+	scanf("%d", &T);
+
+	for (int i = T; i > 0; i--) {
+		scanf("%d %d %d", &H, &W, &N);
+		int number = N / H;
+		int floor = N % H;
+
+		if (floor == 0) printf("%d\n", H * 100 + number); // 꼭대기 층일 경우 다른 값이 나오는 것을 유의
+		else printf("%d\n", floor * 100 + number + 1);
+	}
+}
