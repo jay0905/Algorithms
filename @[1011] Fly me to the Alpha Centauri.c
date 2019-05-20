@@ -8,39 +8,44 @@
 ( 여기서 다시 2광년을 이동한다면 다음 시기엔 1, 2, 3 광년을 이동할 수 있다. )
 */
 
+// 메모리 초과
 #include <stdio.h>
 #include <stdlib.h>
 
 int main() {
-	int t, x, y, cnt = 1, two = 1, bb = 1, i = 0;
+	int t, x, y, cnt = 1, two = 1, bb = 1, num = 1;
 	scanf("%d", &t);
 
 	while (t--) {
-		int *d;
-
+		int *d = { 0 };
+		int cnt = 1, two = 1, bb = 1, num = 1;
 		scanf("%d %d", &x, &y);
+		long long dis = y - x;
+		d = (int*)malloc(dis * sizeof(int));
 		
-		d = (int*)malloc((y - x) * sizeof(int));
-
-		if (two == 1) {
-			while (bb--) {
+		for (int i = 0; i < dis; i++) {
+			if (bb > 0) {
 				d[i] = cnt;
-				i++;
+				bb--;
 			}
-			cnt++;
-			two++;
-				
+			if (bb == 0) {
+				if (two == 1) {
+					bb = num;
+					two++;
+					cnt++;
+				}
+				else if (two == 2) {
+					cnt++; 
+					num++;
+					bb = num;
+					two--;
+				}
 			}
-		else if (two == 2) {
-			cnt++;
-			two--;
-			bb++;
 		}
-		
-		if(i == y - x) printf("%d", d[x - y - 1]);
-	
+		printf("%d\n", d[dis - 1]);
 		free(d);
 	}
 
 }
+
 
