@@ -9,26 +9,38 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 
-int main(void) {
-	int T, x, y;
-	int n = 1;
-	int i = 1;
-	scanf("%d", &T);
+int main() {
+	int t, x, y, cnt = 1, two = 1, bb = 1, i = 0;
+	scanf("%d", &t);
 
-	for (int j = T; j > 0; j--) {
+	while (t--) {
+		int *d;
+
 		scanf("%d %d", &x, &y);
-		int d = y - x;
-		while (1) {
-			d -= n, i++;
-			if (i > 2) n++, i = 1;
-			if (d <= 0) {
-				break;
+		
+		d = (int*)malloc((y - x) * sizeof(int));
+
+		if (two == 1) {
+			while (bb--) {
+				d[i] = cnt;
+				i++;
 			}
+			cnt++;
+			two++;
+				
+			}
+		else if (two == 2) {
+			cnt++;
+			two--;
+			bb++;
 		}
-		if (i == 1) printf("%d\n", n * 2 - 1);
-		else if (i == 2) printf("%d\n", n * 2);
+		
+		if(i == y - x) printf("%d", d[x - y - 1]);
+	
+		free(d);
 	}
 
-
 }
+
