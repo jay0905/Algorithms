@@ -8,44 +8,36 @@
 ( 여기서 다시 2광년을 이동한다면 다음 시기엔 1, 2, 3 광년을 이동할 수 있다. )
 */
 
-// 메모리 초과
 #include <stdio.h>
-#include <stdlib.h>
+#include <math.h>
 
-int main() {
-	int t, x, y, cnt = 1, two = 1, bb = 1, num = 1;
+int main(void) {
+	int t, cnt;
+	long long x, y, dis;
 	scanf("%d", &t);
 
 	while (t--) {
-		int *d = { 0 };
-		int cnt = 1, two = 1, bb = 1, num = 1;
-		scanf("%d %d", &x, &y);
-		long long dis = y - x;
-		d = (int*)malloc(dis * sizeof(int));
-		
-		for (int i = 0; i < dis; i++) {
-			if (bb > 0) {
-				d[i] = cnt;
-				bb--;
-			}
-			if (bb == 0) {
-				if (two == 1) {
-					bb = num;
-					two++;
-					cnt++;
-				}
-				else if (two == 2) {
-					cnt++; 
-					num++;
-					bb = num;
-					two--;
+		scanf("%lld %lld", &x, &y);
+		dis = y - x;
+		cnt = 0;
+
+		if (y - x == 1) cnt = 1;
+		else {
+			for (int i = 1; i < y - x; i++) {
+				if (dis > pow(i, 2) && dis <= pow(i + 1, 2)) {
+					if (dis >= (pow(i + 1, 2) + pow(i, 2)) / 2) cnt = 2 * i + 1;
+					else cnt = 2 * i;
+					break;
 				}
 			}
 		}
-		printf("%d\n", d[dis - 1]);
-		free(d);
+		printf("%d\n", cnt);
 	}
-
 }
 
+/*
+정말 풀기 힘들었던 문제.
+결국 다른 풀이 참고하다 마음에 안들어서 내 마음대로 .
+규칙 찾는 것 까지는 그렇게 어렵지 않았는데 규칙을 어떻게 연결하느냐가 꽤 헷갈렸다.
+*/
 
