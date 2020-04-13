@@ -22,13 +22,7 @@ def solution(m, musicinfos):
     for idx, musicinfo in enumerate(musicinfos):
         infos = musicinfo.split(",")
 
-        if infos[START][:2] != infos[END][:2]:
-            if infos[END][:2] == "00":
-                play_time = 60 - int(infos[START][3:5])
-            else:
-                play_time = 60 - int(infos[START][3:5]) + int(infos[END][3:5])
-        else:
-            play_time = int(infos[END][3:5]) - int(infos[START][3:5])
+        play_time = (int(infos[END][:2]) - int(infos[START][:2])) * 60 + int(infos[END][3:5]) - int(infos[START][3:5])
 
         converted = convert_note(infos[NOTE])
 
@@ -43,7 +37,7 @@ def solution(m, musicinfos):
             candidate.append([play_time, idx, infos[NAME]])
 
     if not candidate:
-        return "`(None)`"
+        return "(None)"
         
     candidate.sort(key=lambda x:(-x[0], x[1]))
 
