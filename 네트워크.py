@@ -1,4 +1,4 @@
-# 출처: https://programmers.co.kr/learn/courses/30/lessons/49189
+
 
 def dfs(computers, VISITED, start):
     stack = [start]
