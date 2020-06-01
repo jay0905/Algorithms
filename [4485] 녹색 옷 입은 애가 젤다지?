@@ -1,0 +1,39 @@
+import sys, heapq
+input = sys.stdin.readline
+INF = sys.maxsize
+
+def solution(n, costs):
+    costs_table = [[INF] * n for _ in range(n)]
+    heap = []
+    heapq.heappush(heap, (costs[0][0], 0, 0))
+    costs_table[0][0] = 0
+
+    while heap:
+        current_cost, x, y = heapq.heappop(heap)
+
+        if (x, y) == (n - 1, n - 1):
+            return costs_table[n - 1][n - 1]
+
+        DELTAS = ((1, 0), (-1, 0), (0, 1), (0, -1))
+        for dx, dy in DELTAS:
+            next_x, next_y = x + dx, y + dy
+
+            if 0 <= next_x < n and 0 <= next_y < n:
+                next_cost = current_cost + costs[next_x][next_y]
+
+                if next_cost < costs_table[next_x][next_y]:
+                    costs_table[next_x][next_y] = next_cost
+                    heapq.heappush(heap, (next_cost, next_x, next_y))
+
+cnt = 1
+while True:
+    n = int(input())
+
+    if n == 0:
+        break
+    else:
+        costs = [list(map(int, input().split())) for _ in range(n)]
+        answer = solution(n, costs)
+        print("Problem {0}: {1}".format(cnt, answer))
+
+    cnt += 1
